@@ -15,9 +15,9 @@ module "eks_blueprints" {
     mg_3 = {
       node_group_name = "managed-ondemand"
       instance_types  = ["t3.medium"] # 17 IPs per node
-      min_size        = 3
+      min_size        = 2
       max_size        = 3
-      desired_size    = 3
+      desired_size    = 2
       subnet_ids      = module.vpc.private_subnets
     }
   }
@@ -57,7 +57,7 @@ module "eks_blueprints_kubernetes_addons" {
     ]
   }
 
-  enable_cert_manager = true
+  enable_cert_manager = false
   cert_manager_helm_config = {
     set_values = [
       {
