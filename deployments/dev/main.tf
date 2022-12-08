@@ -69,6 +69,21 @@ module "eks_blueprints_kubernetes_addons" {
   # TODO - requires dependency on `cert-manager` for namespace
   # enable_cert_manager_csi_driver = true
 
+  # Guide to deploy ArgoCD w/ EKS blueprints: https://aws-ia.github.io/terraform-aws-eks-blueprints/add-ons/argocd/
+  # Additional tutorial: https://superorbital.io/journal/terraform-aws-eks-blueprints/
+  # enable_argocd = true
+  # argocd_helm_config = {
+  #   name             = "argo-cd"
+  #   chart            = "argo-cd"
+  #   repository       = "https://argoproj.github.io/argo-helm"
+  #   version          = "<chart_version>"
+  #   namespace        = "argocd"
+  #   timeout          = "1200"
+  #   create_namespace = true
+  #   values           = [templatefile("${path.module}/argocd-values.yaml", {})]
+  # }
+
+
   tags = local.tags
 }
 
