@@ -1,6 +1,8 @@
 locals {
   name = "deloitte-argo-tech-talk"
 
+  save_money = false
+
   # var.cluster_name is for Terratest
   cluster_name = coalesce(var.cluster_name, local.name)
   region       = "us-west-2"

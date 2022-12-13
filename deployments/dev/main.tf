@@ -14,10 +14,10 @@ module "eks_blueprints" {
   managed_node_groups = {
     mg_3 = {
       node_group_name = "managed-ondemand"
-      instance_types  = ["t3.medium"] # 17 IPs per node
-      min_size        = 2
-      max_size        = 3
-      desired_size    = 2
+      instance_types  = ["t3.medium"]            # 17 IPs per node
+      min_size        = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
+      max_size        = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
+      desired_size    = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
       subnet_ids      = module.vpc.private_subnets
     }
   }
@@ -42,7 +42,7 @@ module "eks_blueprints_kubernetes_addons" {
   # Add-ons
   enable_aws_load_balancer_controller = true
   enable_metrics_server               = true
-  enable_aws_cloudwatch_metrics       = true
+  enable_aws_cloudwatch_metrics       = false
   enable_kubecost                     = false
   enable_gatekeeper                   = false
 
@@ -66,23 +66,16 @@ module "eks_blueprints_kubernetes_addons" {
       },
     ]
   }
-  # TODO - requires dependency on `cert-manager` for namespace
-  # enable_cert_manager_csi_driver = true
 
-  # Guide to deploy ArgoCD w/ EKS blueprints: https://aws-ia.github.io/terraform-aws-eks-blueprints/add-ons/argocd/
-  # Additional tutorial: https://superorbital.io/journal/terraform-aws-eks-blueprints/
-  # enable_argocd = true
-  # argocd_helm_config = {
-  #   name             = "argo-cd"
-  #   chart            = "argo-cd"
-  #   repository       = "https://argoproj.github.io/argo-helm"
-  #   version          = "<chart_version>"
-  #   namespace        = "argocd"
-  #   timeout          = "1200"
-  #   create_namespace = true
-  #   values           = [templatefile("${path.module}/argocd-values.yaml", {})]
-  # }
-
+  enable_argocd = true
+  argocd_helm_config = {
+    set = [
+      {
+        name  = "server.service.type"
+        value = "LoadBalancer"
+      }
+    ]
+  }
 
   tags = local.tags
 }
@@ -102,8 +95,8 @@ module "vpc" {
   public_subnets  = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
   private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 10)]
 
-  enable_nat_gateway   = true
-  single_nat_gateway   = true
+  enable_nat_gateway   = !local.save_money
+  single_nat_gateway   = !local.save_money
   enable_dns_hostnames = true
 
   # Manage so we can name
