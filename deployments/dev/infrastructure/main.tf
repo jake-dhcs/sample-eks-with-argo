@@ -3,7 +3,7 @@
 #---------------------------------------------------------------
 
 module "eks_blueprints" {
-  source = "../.."
+  source = "../../.."
 
   cluster_name    = local.cluster_name
   cluster_version = "1.23"
@@ -26,7 +26,7 @@ module "eks_blueprints" {
 }
 
 module "eks_blueprints_kubernetes_addons" {
-  source = "../../modules/kubernetes-addons"
+  source = "../../../modules/kubernetes-addons"
 
   eks_cluster_id       = module.eks_blueprints.eks_cluster_id
   eks_cluster_endpoint = module.eks_blueprints.eks_cluster_endpoint
@@ -76,6 +76,15 @@ module "eks_blueprints_kubernetes_addons" {
       }
     ]
   }
+
+  argocd_applications = {
+    argocd-setup = {
+      path     = "deployments/dev/infrastructure/argo_setup"
+      repo_url = "https://github.com/jake-dhcs/sample-eks-with-argo"
+      values   = {}
+    }
+  }
+
 
   tags = local.tags
 }

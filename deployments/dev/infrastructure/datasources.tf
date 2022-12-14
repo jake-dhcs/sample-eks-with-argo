@@ -11,10 +11,3 @@ data "kubernetes_service" "argocd" {
     namespace = "argocd"
   }
 }
-
-data "kubernetes_secret" "argocd_admin_password" {
-  metadata {
-    name      = "argocd-initial-admin-secret"
-    namespace = "argocd"
-  }
-}
