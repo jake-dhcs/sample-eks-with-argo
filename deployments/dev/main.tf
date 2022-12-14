@@ -16,7 +16,7 @@ module "eks_blueprints" {
       node_group_name = "managed-ondemand"
       instance_types  = ["t3.medium"]            # 17 IPs per node
       min_size        = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
-      max_size        = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
+      max_size        = local.save_money ? 1 : 3 # 0 when we are saving money, 3 for HA on Argo Server
       desired_size    = local.save_money ? 0 : 3 # 0 when we are saving money, 3 for HA on Argo Server
       subnet_ids      = module.vpc.private_subnets
     }
@@ -58,16 +58,16 @@ module "eks_blueprints_kubernetes_addons" {
   }
 
   enable_cert_manager = false
-  cert_manager_helm_config = {
-    set_values = [
-      {
-        name  = "extraArgs[0]"
-        value = "--enable-certificate-owner-ref=false"
-      },
-    ]
-  }
+  # cert_manager_helm_config = {
+  #   set_values = [
+  #     {
+  #       name  = "extraArgs[0]"
+  #       value = "--enable-certificate-owner-ref=false"
+  #     },
+  #   ]
+  # }
 
-  enable_argocd = true
+  enable_argocd = !local.save_money
   argocd_helm_config = {
     set = [
       {

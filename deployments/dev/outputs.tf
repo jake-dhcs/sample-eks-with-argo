@@ -53,3 +53,15 @@ output "region" {
   description = "AWS region"
   value       = local.region
 }
+
+output "argocd_server" {
+  description = "URL where the ArgoCD server is exposed at"
+  value       = "https://${data.kubernetes_service.argocd.status.0.load_balancer.0.ingress.0.hostname}"
+}
+
+output "retrieve_argocd_admin_password" {
+  description = "Command to retrieve argocd admin password. Note, must have ran configure_kubectl command already"
+  value       = <<EOF
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | pbcopy
+EOF
+}
