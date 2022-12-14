@@ -6,7 +6,7 @@ spec:
   source:
     repoURL: https://github.com/jake-dhcs/sample-eks-with-argo
     targetRevision: HEAD
-    path: deployments/dev/applications
+    path: applications
   destination:
     namespace: argo-demo
     name: "Root Application"
