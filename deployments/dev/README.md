@@ -91,6 +91,21 @@ ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o js
 argocd login localhost:8080 --username admin --password $ARGOCD_PASSWORD
 ```
 
+### Example using CLI to create application
+
+```bash
+argocd app create test-application \
+  --upsert \
+  --repo https://github.com/jake-dhcs/sample-eks-with-argo \
+  --path applications \
+  --revision main \
+  --project argocd-demo \
+  --auto-prune \
+  --sync-policy automatic \
+  --dest-namespace argocd-demo \
+  --dest-name in-cluster
+```
+
 ## Cleanup
 
 To clean up your environment, destroy the Terraform modules in reverse order.
