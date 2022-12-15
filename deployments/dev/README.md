@@ -79,6 +79,18 @@ This following command used to update the `kubeconfig` in your local machine whe
 
     kubectl get pods -n kube-system
 
+## Using ArgoCD CLI
+
+```bash
+# Forwarding Ports to Access Argo CD
+kubectl port-forward svc/argo-cd-argocd-server -n argocd 8080:443
+
+# Copy password to clipboard
+ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+
+argocd login localhost:8080 --username admin --password $ARGOCD_PASSWORD
+```
+
 ## Cleanup
 
 To clean up your environment, destroy the Terraform modules in reverse order.

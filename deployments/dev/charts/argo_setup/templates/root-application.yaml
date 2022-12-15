@@ -12,7 +12,7 @@ spec:
     path: applications
   destination:
     namespace: argocd-demo
-    name: in-cluster
+    name: https://kubernetes.default.svc
   project: default
   syncPolicy:
     automated:
