@@ -15,7 +15,9 @@ spec:
     name: in-cluster
   project: argocd-demo
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - PruneLast=true
       - CreateNamespace=true
