@@ -23,7 +23,7 @@ spec:
         targetRevision: HEAD
         path: {{chartName}}
       destination:
-        server: https://kubernetes.default.svc
+        server: in-cluster
         namespace: {{namespace}}
       syncPolicy:
         automated:
