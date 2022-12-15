@@ -1,6 +1,6 @@
 apiVersion: v2
-name: applications
-description: Deploys our app of app-sets
+name: apps
+description: Deploys our app of apps
 
 # A chart can be either an 'application' or a 'library' chart.
 #
