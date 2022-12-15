@@ -23,7 +23,7 @@ spec:
         targetRevision: HEAD
         path: {{chartName}}
       destination:
-        server: deloitte-argo-tech-talk
+        server: https://kubernetes.default.svc
         namespace: {{namespace}}
       syncPolicy:
         automated:
