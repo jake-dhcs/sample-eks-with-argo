@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/jake-dhcs/sample-eks-with-argo
     targetRevision: HEAD
-    path: applications
+    path: applications/charts
   destination:
     namespace: argocd-demo
     name: in-cluster
