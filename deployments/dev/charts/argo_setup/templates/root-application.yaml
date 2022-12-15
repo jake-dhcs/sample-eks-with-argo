@@ -11,8 +11,8 @@ spec:
     targetRevision: HEAD
     path: applications
   destination:
-    namespace: argo-demo
-    name: root-application
+    namespace: argocd-demo
+    name: https://kubernetes.default.svc
   project: argocd-demo
   syncPolicy:
     automated: {}
