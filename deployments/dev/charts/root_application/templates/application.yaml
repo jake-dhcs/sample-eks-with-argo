@@ -11,6 +11,7 @@ spec:
   destination:
     namespace: argo-demo
     name: root-application
+  project: argocd-demo
   syncPolicy:
     automated: {}
     syncOptions:
