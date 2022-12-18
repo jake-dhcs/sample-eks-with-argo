@@ -14,7 +14,7 @@ spec:
     - "https://github.com/jake-dhcs/sample-helm-charts"
   # Permit applications to deploy to the argocd-demo namespace in the same cluster
   destinations:
-    - namespace: argocd-demo
+    - namespace: argocd-demo*
       server: https://kubernetes.default.svc
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
