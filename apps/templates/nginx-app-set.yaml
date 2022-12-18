@@ -6,25 +6,25 @@ spec:
   generators:
     - list:
         elements:
-          - name: "nginx"
+          - chartName: "nginx"
             namespace: "argocd-demo"
-          - name: "nginx2"
+          - chartName: "nginx2"
             namespace: "argocd-demo"
           # This one should not deploy properly
-          # - name: nginx
+          # - chartName: nginx
           #   namespace: argocd-demo2
   template:
     metadata:
-      name: "{{name}}"
+      name: {{"{{"}}chartName{{"}}"}}
     spec:
       project: argocd-demo
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: charts/{{name}}
+        path: charts/{{"{{"}}chartName{{"}}"}}
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{namespace}}"
+        namespace: {{"{{"}}namespace{{"}}"}}
       syncPolicy:
         automated:
           prune: true
