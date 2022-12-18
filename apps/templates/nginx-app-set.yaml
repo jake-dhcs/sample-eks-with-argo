@@ -7,16 +7,19 @@ spec:
   generators:
     - list:
         elements:
-          - chartName: nginx
+          - applicationName: argocd-demo
+            chartName: nginx
             namespace: argocd-demo
-          - chartName: nginx2
-            namespace: argocd-demo
-          # This one should not deploy properly
-          - chartName: nginx
+          - applicationName: argocd-demo2
+            chartName: nginx2
             namespace: argocd-demo2
+          # This one should not deploy properly
+          - applicationName: argocd-demo3
+            chartName: nginx
+            namespace: invalid-ns-argocd-demo
   template:
     metadata:
-      name: "{{ .Values.chartName }}"
+      name: "{{ .Values.applicationName }}"
     spec:
       project: argocd-demo
       source:
