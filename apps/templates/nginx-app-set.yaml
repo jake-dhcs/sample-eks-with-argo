@@ -4,28 +4,28 @@ metadata:
   name: nginx
   namespace: argocd
 spec:
-  generators:
-    - list:
-        elements:
-          - chartName: nginx
-            namespace: argocd-demo
-          - chartName: nginx2
-            namespace: argocd-demo
-          # This one should not deploy properly
-          # - chartName: nginx
-          #   namespace: argocd-demo2
+  # generators:
+  #   - list:
+  #       elements:
+  #         - chartName: nginx
+  #           namespace: argocd-demo
+  #         - chartName: nginx2
+  #           namespace: argocd-demo
+  # This one should not deploy properly
+  # - chartName: nginx
+  #   namespace: argocd-demo2
   template:
     metadata:
-      name: "{{chartName}}"
+      name: nginx
     spec:
       project: argocd-demo
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: "charts/{{chartName}}"
+        path: "charts/nginx"
       destination:
         server: https://kubernetes.default.svc
-        namespace: "{{namespace}}"
+        namespace: argocd-demo
       syncPolicy:
         automated:
           prune: true
