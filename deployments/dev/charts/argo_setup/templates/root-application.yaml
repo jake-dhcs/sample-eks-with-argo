@@ -10,9 +10,9 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   source:
-    repoURL: https://github.com/jake-dhcs/sample-eks-with-argo
+    repoURL: https://github.com/jake-dhcs/sample-eks-with-argo.git
     targetRevision: HEAD
-    chart: applications
+    path: applications
   destination:
     namespace: argocd-demo
     server: https://kubernetes.default.svc
