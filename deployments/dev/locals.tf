@@ -1,5 +1,5 @@
 locals {
-  name = "deloitte-argo-tech-talk"
+  name = "argocd-demo"
 
   save_money = false
 

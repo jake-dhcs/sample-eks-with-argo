@@ -16,68 +16,11 @@ Ensure that you have installed the following tools in your Mac or Windows Laptop
 2. [Kubectl](https://Kubernetes.io/docs/tasks/tools/)
 3. [Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
-### Minimum IAM Policy
-
-> **Note**: The policy resource is set as `*` to allow all resources, this is not a recommended practice.
-
-You can find the policy [here](min-iam-policy.json)
-
 ### Deployment Steps
 
+Details for how to initialize the TF provider can be found [here](https://blog.gruntwork.io/how-to-manage-terraform-state-28f5697e68fa)
+
 Note. Detailed steps to initialize this can be found [here](https://aws-ia.github.io/terraform-aws-eks-blueprints/getting-started/)
-
-#### Step 1: Clone the repo using the command below
-
-```sh
-git clone https://github.com/aws-ia/terraform-aws-eks-blueprints.git
-```
-
-#### Step 2: Run Terraform INIT
-
-Initialize a working directory with configuration files
-
-```sh
-cd examples/eks-cluster-with-new-vpc/
-terraform init
-```
-
-#### Step 3: Run Terraform PLAN
-
-Verify the resources created by this execution
-
-```sh
-export AWS_REGION=<ENTER YOUR REGION>   # Select your own region
-terraform plan
-```
-
-#### Step 4: Finally, Terraform APPLY
-
-**Deploy the pattern**
-
-```sh
-terraform apply
-```
-
-Enter `yes` to apply.
-
-### Configure `kubectl` and test cluster
-
-EKS Cluster details can be extracted from terraform output or from AWS Console to get the name of cluster.
-This following command used to update the `kubeconfig` in your local machine where you run kubectl commands to interact with your EKS Cluster.
-
-#### Step 5: Run `update-kubeconfig` command
-
-`~/.kube/config` file gets updated with cluster details and certificate from the below command
-
-    aws eks --region <enter-your-region> update-kubeconfig --name <cluster-name>
-
-#### Step 6: List all the worker nodes by running the command below
-
-    kubectl get nodes
-
-#### Step 7: List all the pods running in `kube-system` namespace
-
-    kubectl get pods -n kube-system
 
 ## Using ArgoCD CLI
 
@@ -110,7 +53,9 @@ argocd app create test-application \
 
 To clean up your environment, destroy the Terraform modules in reverse order.
 
-Destroy the Kubernetes Add-ons, EKS cluster with Node groups and VPC
+Destroy the Kubernetes Add-ons, EKS cluster with Node groups and VPC.
+
+Note, you may need to manually destroy any load balancers which were created to expose the argo application.
 
 ```sh
 terraform destroy -target="module.eks_blueprints_kubernetes_addons" -auto-approve

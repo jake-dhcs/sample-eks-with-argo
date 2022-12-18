@@ -5,9 +5,9 @@ data "aws_availability_zones" "available" {
   }
 }
 
-data "kubernetes_service" "argocd" {
-  metadata {
-    name      = "argo-cd-argocd-server"
-    namespace = "argocd"
-  }
-}
+# data "kubernetes_service" "argocd" {
+#   metadata {
+#     name      = "argo-cd-argocd-server"
+#     namespace = "argocd"
+#   }
+# }
