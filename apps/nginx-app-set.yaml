@@ -9,8 +9,8 @@ spec:
         elements:
           - chartName: nginx
             namespace: argocd-demo
-          - chartName: nginx2
-            namespace: argocd-demo
+          # - chartName: nginx2
+          #   namespace: argocd-demo
           # This one should not deploy properly
           # - chartName: nginx
           #   namespace: argocd-demo2
