@@ -21,7 +21,7 @@ spec:
             minReplicas: "2"
   template:
     metadata:
-      name: "{{ .Values.applicationName }}"
+      name: "nginx-{{ .Values.environment }}"
     spec:
       project: argocd-demo
       source:
