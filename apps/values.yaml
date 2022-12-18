@@ -1,3 +1,6 @@
 applicationName: "{{applicationName}}"
 chartName: "{{chartName}}"
 namespace: "{{namespace}}"
+environment: "{{environment}}"
+minReplicas: "{{minReplicas}}"
+enableAutoscaling: "{{enableAutoscaling}}"

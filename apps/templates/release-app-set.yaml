@@ -1,0 +1,53 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: release-sample
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - environment: dev
+            chartName: nginx
+            enableAutoscaling: "false"
+            minReplicas: "1"
+          - environment: staging
+            chartName: nginx2
+            enableAutoscaling: "true"
+            minReplicas: "2"
+          - environment: prod
+            chartName: nginx
+            enableAutoscaling: "true"
+            minReplicas: "2"
+  template:
+    metadata:
+      name: "{{ .Values.applicationName }}"
+    spec:
+      project: argocd-demo
+      source:
+        repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
+        targetRevision: HEAD
+        path: charts/{{ .Values.chartName }}
+        helm:
+          parameters:
+            - name: autoscaling.enabled
+              value: "{{ .Values.enableAutoscaling }}"
+            - name: autoscaling.minReplicas
+              value: "{{ .Values.minReplicas }}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "argocd-demo-{{ .Values.environment }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=true
+          - Validate=true
+        retry:
+          limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+          backoff:
+            duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+            factor: 2 # a factor to multiply the base duration after each failed retry
+            maxDuration: 3m # the maximum amount of time allowed for the backoff strategy
