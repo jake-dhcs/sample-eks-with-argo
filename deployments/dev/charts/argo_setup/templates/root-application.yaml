@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/jake-dhcs/sample-eks-with-argo
     targetRevision: HEAD
-    path: applications
+    chart: applications
   destination:
     namespace: argocd-demo
     server: https://kubernetes.default.svc
