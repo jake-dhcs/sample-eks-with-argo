@@ -11,7 +11,7 @@ spec:
     targetRevision: HEAD
     path: applications
   destination:
-    namespace: argocd-demo
+    namespace: argocd
     name: in-cluster
   project: default
   syncPolicy:
