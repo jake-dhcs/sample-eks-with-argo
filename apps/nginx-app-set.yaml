@@ -19,11 +19,11 @@ spec:
     spec:
       project: argocd-demo
       source:
-        repoURL: https://github.com/jake-dhcs/sample-helm-charts
+        repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
         path: charts/{{chartName}}
       destination:
-        server: in-cluster
+        server: https://kubernetes.default.svc
         namespace: {{namespace}}
       syncPolicy:
         automated:
