@@ -2,26 +2,27 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginx
+  namespace: argocd
 spec:
   generators:
     - list:
         elements:
-          - chartName: "nginx"
-            namespace: "argocd-demo"
-          - chartName: "nginx2"
-            namespace: "argocd-demo"
+          - chartName: nginx
+            namespace: argocd-demo
+          - chartName: nginx2
+            namespace: argocd-demo
           # This one should not deploy properly
           # - chartName: nginx
           #   namespace: argocd-demo2
   template:
     metadata:
-      name: "{{chartName}}"
+      name: {{chartName}}
     spec:
       project: argocd-demo
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: charts
+        path: charts/{{chartName}}
       destination:
         server: https://kubernetes.default.svc
         namespace: {{namespace}}
