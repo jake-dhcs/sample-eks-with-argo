@@ -21,7 +21,7 @@ spec:
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: charts/{{chartName}}
+        path: charts/nginx
       destination:
         server: https://kubernetes.default.svc
         namespace: {{namespace}}
