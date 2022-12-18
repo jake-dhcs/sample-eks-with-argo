@@ -2,13 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: nginx
-  namespace: argocd
 spec:
-  # generators:
-  #   - list:
-  #       elements:
-  #         - chartName: nginx
-  #           namespace: argocd-demo
+  generators:
+    - list:
+        elements:
+          - chartName: nginx
+            namespace: argocd-demo
   #         - chartName: nginx2
   #           namespace: argocd-demo
   # This one should not deploy properly
