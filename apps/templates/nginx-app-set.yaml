@@ -16,16 +16,16 @@ spec:
           #   namespace: argocd-demo2
   template:
     metadata:
-      name: {{chartName}}
+      name: "{{chartName}}"
     spec:
       project: argocd-demo
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: charts/{{chartName}}
+        path: "charts/{{chartName}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: {{namespace}}
+        namespace: "{{namespace}}"
       syncPolicy:
         automated:
           prune: true
