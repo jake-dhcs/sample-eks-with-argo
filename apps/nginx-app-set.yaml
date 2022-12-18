@@ -11,8 +11,8 @@ spec:
           - chartName: nginx2
             namespace: argocd-demo
           # This one should not deploy properly
-          - chartName: nginx
-            namespace: argocd-demo2
+          # - chartName: nginx
+          #   namespace: argocd-demo2
   template:
     metadata:
       name: "{{chartName}}"
@@ -21,10 +21,10 @@ spec:
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts
         targetRevision: HEAD
-        path: {{ chartName }}
+        path: {{chartName}}
       destination:
         server: in-cluster
-        namespace: {{ namespace }}
+        namespace: {{namespace}}
       syncPolicy:
         automated:
           prune: true
