@@ -21,10 +21,10 @@ spec:
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts
         targetRevision: HEAD
-        path: { { chartName } }
+        path: {{ chartName }}
       destination:
         server: in-cluster
-        namespace: { { namespace } }
+        namespace: {{ namespace }}
       syncPolicy:
         automated:
           prune: true
