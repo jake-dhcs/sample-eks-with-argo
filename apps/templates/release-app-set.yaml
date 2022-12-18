@@ -8,15 +8,12 @@ spec:
     - list:
         elements:
           - environment: dev
-            chartName: nginx
             enableAutoscaling: "false"
             minReplicas: "1"
           - environment: staging
-            chartName: nginx2
             enableAutoscaling: "true"
             minReplicas: "2"
           - environment: prod
-            chartName: nginx
             enableAutoscaling: "true"
             minReplicas: "2"
   template:
@@ -27,7 +24,7 @@ spec:
       source:
         repoURL: https://github.com/jake-dhcs/sample-helm-charts.git
         targetRevision: HEAD
-        path: charts/{{ .Values.chartName }}
+        path: charts/nginx
         helm:
           parameters:
             - name: autoscaling.enabled
