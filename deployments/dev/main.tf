@@ -75,11 +75,6 @@ module "eks_blueprints_kubernetes_addons" {
       repo_url = "https://github.com/jake-dhcs/sample-eks-with-argo"
       values   = {}
     }
-    # apps = {
-    #   path     = "applications"
-    #   repo_url = "https://github.com/jake-dhcs/sample-eks-with-argo"
-    #   values   = {}
-    # }
   }
 
 
