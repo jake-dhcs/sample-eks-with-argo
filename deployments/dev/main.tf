@@ -67,7 +67,7 @@ module "eks_blueprints_kubernetes_addons" {
         value = "LoadBalancer"
       },
       {
-        name  = "configs.rbac.\"policy\\.default\""
+        name  = "configs.rbac.policy\\.default"
         value = "role:admin"
       }
     ]

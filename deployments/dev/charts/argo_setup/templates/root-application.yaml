@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "10"
+  # Add this finalizer ONLY if you want these to cascade delete.
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   source:
     repoURL: https://github.com/jake-dhcs/sample-eks-with-argo
@@ -12,7 +15,7 @@ spec:
     path: applications
   destination:
     namespace: argocd-demo
-    name: in-cluster
+    server: https://kubernetes.default.svc
   project: argocd-demo
   syncPolicy:
     automated:
